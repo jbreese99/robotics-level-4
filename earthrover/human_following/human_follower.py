@@ -67,18 +67,9 @@ def video_feed():
                     
 #-----initialise motor speed-----------------------------------
 
-import RPi.GPIO as GPIO 
-GPIO.setmode(GPIO.BCM)  # choose BCM numbering scheme  
-      
-GPIO.setup(20, GPIO.OUT)# set GPIO 20 as output pin
-GPIO.setup(21, GPIO.OUT)# set GPIO 21 as output pin
-      
-pin20 = GPIO.PWM(20, 100)    # create object pin20 for PWM on port 20 at 100 Hertz  
-pin21 = GPIO.PWM(21, 100)    # create object pin21 for PWM on port 21 at 100 Hertz  
 
 val=100
-pin20.start(val)              # start pin20 on 0 percent duty cycle (off)  
-pin21.start(val)              # start pin21 on 0 percent duty cycle (off)  
+
     
 print("speed set to: ", val)
 #------------------------------------------
@@ -90,7 +81,6 @@ def track_object(objs,labels):
     if(len(objs)==0):
         print("no objects to track")
         ut.stop()
-        ut.red_light("OFF")
         arr_track_data=[0,0,0,0,0,0]
         return
     
@@ -147,15 +137,12 @@ def move_robot():
         delay1=0
         if(y<0.1):
             cmd="Stop"
-            ut.red_light("ON")
             ut.stop()
         else:
             cmd="forward"
-            ut.red_light("OFF")
             ut.forward()
     
     else:
-        ut.red_light("OFF")
         if(x_deviation>=tolerance):
             cmd="Move Left"
             delay1=get_delay(x_deviation)

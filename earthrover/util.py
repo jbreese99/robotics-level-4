@@ -6,8 +6,7 @@ website: https://helloworld.co.in
 
 '''
 
-import RPi.GPIO as GPIO
-GPIO.setwarnings(False)
+
 
 import os, time
 
@@ -24,47 +23,26 @@ sp_light=9
 
 
 def init_gpio():
-	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(m1_1,GPIO.OUT)
-	GPIO.setup(m1_2,GPIO.OUT)
-	GPIO.setup(m2_1,GPIO.OUT)
-	GPIO.setup(m2_2,GPIO.OUT)
-	GPIO.setup(cam_light,GPIO.OUT)
-	GPIO.setup(headlight_right,GPIO.OUT)
-	GPIO.setup(headlight_left,GPIO.OUT)
-	GPIO.setup(sp_light,GPIO.OUT)
+	print("finish setup")
 	
 
 def back():
     print("moving back!!!!!!")
-    GPIO.output(m1_1, False)
-    GPIO.output(m1_2, True)
-    GPIO.output(m2_1, True)
-    GPIO.output(m2_2, False)
+    
     
 def right():
-	GPIO.output(m1_1, True)
-	GPIO.output(m1_2, False)
-	GPIO.output(m2_1, True)
-	GPIO.output(m2_2, False)
+	print("Moving right")
+	
 
 def left():
-	GPIO.output(m1_1, False)
-	GPIO.output(m1_2, True)
-	GPIO.output(m2_1, False)
-	GPIO.output(m2_2, True)
+	print("Moving left")
 	
 def forward():
-	GPIO.output(m1_1, True)
-	GPIO.output(m1_2, False)
-	GPIO.output(m2_1, False)
-	GPIO.output(m2_2, True)
+	print("Moving forward")
+	# Here is where all of the robot interfacing occurs
 	
 def stop():
-	GPIO.output(m1_1, False)
-	GPIO.output(m1_2, False)
-	GPIO.output(m2_1, False)
-	GPIO.output(m2_2, False)
+	print("Stopping")
 
 def speak_tts(text,gender):
 	cmd="python /var/www/html/earthrover/speaker/speaker_tts.py '" + text + "' " + gender + " &"
@@ -72,27 +50,19 @@ def speak_tts(text,gender):
 	
 def camera_light(state):
 	if(state=="ON"):
-		GPIO.output(cam_light, True)
-		#print("light on")
+		print("light on")
 	else:
-		GPIO.output(cam_light, False)
-		#print("light off")
+		print("light off")
 		
 def head_lights(state):
 	if(state=="ON"):
-		GPIO.output(headlight_left, True)
-		GPIO.output(headlight_right, True)
-		#print("light on")
+		print("light on")
 	else:
-		GPIO.output(headlight_left, False)
-		GPIO.output(headlight_right, False)
-		#print("light off")
+		print("light off")
 		
 def red_light(state):
 	if(state=="ON"):
-		GPIO.output(sp_light, True)
-		#print("light on")
+		print("light on")
 	else:
-		GPIO.output(sp_light, False)
-		#print("light off")
+		print("light off")
 	
